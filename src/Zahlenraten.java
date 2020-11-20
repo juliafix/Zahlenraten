@@ -1,75 +1,30 @@
-import java.util.Scanner;
-
 public class Zahlenraten {
 
-    static Scanner scanner = new Scanner(System.in);
-    static int zufallszahl;
-    static int benutzereingabe;
-
     public static void main(String[] args) {
+        Zufallszahl zufallszahl = new Zufallszahl();
+        Benutzerinteraktion benutzerinteraktion = new Benutzerinteraktion();
+        benutzerinteraktion.initaleAusgabe();
+        int vergleichsErgebnis;
 
-        setZufallszahl();
-        setSystemausgabe();
-        setBenutzereingabe();
-        zahlenVergleich();
-        scanner.close();
+        do {
+            int benutzereingabe = benutzerinteraktion.getBenutzereingabe();
+            vergleichsErgebnis = zufallszahl.zahlenVergleich(benutzereingabe);
 
-    }
-
-    private static void zahlenVergleich() {
-
-        while (benutzereingabe <= 10) {
-
-            if (benutzereingabe > zufallszahl) {
-                zahlZuGross();
-            } else if (benutzereingabe < zufallszahl) {
-                zahlZuKlein();
-            } else {
-                richtigeZahl();
-                break;
+            if (vergleichsErgebnis == 1) {
+                benutzerinteraktion.eingabeZuGross();
+            } else if (vergleichsErgebnis == -1) {
+                benutzerinteraktion.eingabeZuKlein();
+            } else if (vergleichsErgebnis == 0) {
+                benutzerinteraktion.richtigeZahl();
             }
-        }
-
+        } while (vergleichsErgebnis != 0);
     }
 
-    private static void richtigeZahl() {
+    //Methoden und Variablen sind selbsterklärend benannt
+    //Keine Redundanzen vorhanden
+    //Methoden sind sehr einfach gehalten und beinhalten wenig Code mit wenig Aufgabe (KISS)
+    //Nur wirklich notwendige Funktionen implementiert
+    //Versionskontrollsystem eingesetzt
+    //Code zur besseren Lesbarkeit nach bestimmten Regeln formatiert
 
-        System.out.println("Glückwunsch! Das war die richtige Zahl");
-
-    }
-
-    private static void zahlZuKlein() {
-
-        System.out.println("Diese Zahl ist zu klein.");
-        System.out.print("Gib eine neue Zahl ein: ");
-        setBenutzereingabe();
-
-    }
-
-    private static void zahlZuGross() {
-
-        System.out.println("Diese Zahl ist zu groß.");
-        System.out.print("Gib eine neue Zahl ein: ");
-        setBenutzereingabe();
-
-    }
-
-    private static void setZufallszahl() {
-
-        int maxZahl = 10;
-        zufallszahl = (int) (Math.random() * maxZahl) + 1;
-
-    }
-
-    private static void setSystemausgabe() {
-
-        System.out.print("Gib eine Zahl zwischen 1 und 10 ein: ");
-
-    }
-
-    private static void setBenutzereingabe() {
-
-       benutzereingabe = scanner.nextInt();
-
-    }
 }
